@@ -27,7 +27,7 @@
             <span id="music-status-text">Musiqa 🎵</span>
         </button>
         <audio id="bg-music" loop preload="auto">
-            <source src="music.mp3" type="audio/mpeg">
+            <source src="music/romantic.mp3" type="audio/mpeg">
             Brauzeringiz audio pleyerni qo'llab-quvvatlamaydi.
         </audio>
     </div>
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="range-slider-wrapper">
-                    <input required type="range" id="mood-slider" min="0" max="100" value="50" step="1" class="slider">
+                    <input type="range" id="mood-slider" min="0" max="100" value="50" step="1" class="slider">
                     <div class="slider-labels">
                         <span>0% (Yomon)</span>
                         <span>100% (A'lo)</span>
@@ -120,17 +120,17 @@
                     style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 25px;">
                     <div class="gift-item" data-gift-id="1"
                         style="flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 15px 8px; cursor: pointer; transition: all 0.3s ease; text-align: center;">
-                        <img src="gift.png" alt="Sovg'a 1"
+                        <img src="images/gift.png" alt="Sovg'a 1"
                             style="width: 100%; max-width: 75px; height: 75px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(236,72,153,0.5)); transition: transform 0.3s ease;">
                     </div>
                     <div class="gift-item" data-gift-id="2"
                         style="flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 15px 8px; cursor: pointer; transition: all 0.3s ease; text-align: center;">
-                        <img src="gift.png" alt="Sovg'a 2"
+                        <img src="images/gift.png" alt="Sovg'a 2"
                             style="width: 100%; max-width: 75px; height: 75px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(139,92,246,0.5)); transition: transform 0.3s ease;">
                     </div>
                     <div class="gift-item" data-gift-id="3"
                         style="flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 15px 8px; cursor: pointer; transition: all 0.3s ease; text-align: center;">
-                        <img src="gift.png" alt="Sovg'a 3"
+                        <img src="images/gift.png" alt="Sovg'a 3"
                             style="width: 100%; max-width: 75px; height: 75px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(236,72,153,0.5)); transition: transform 0.3s ease;">
                     </div>
                 </div>
@@ -148,8 +148,8 @@
 
                 <div class="question-box">
                     <h3 id="blitz-question-title">Savol yuklanmoqda...</h3>
-                    <div class="input required-wrapper">
-                        <textarea id="blitz-answer-input required" rows="3" placeholder="Javobingni shu yerga yoz..."
+                    <div class="input-wrapper">
+                        <textarea id="blitz-answer-input" rows="3" placeholder="Javobingni shu yerga yoz..."
                             style="margin-bottom: 10px;"></textarea>
                     </div>
                 </div>
@@ -180,7 +180,7 @@
                 </div>
 
                 <div class="range-slider-wrapper" style="margin: 24px 0;">
-                    <input required type="range" id="love-slider" min="100" max="1000" value="100" step="10" class="slider">
+                    <input type="range" id="love-slider" min="100" max="1000" value="100" step="10" class="slider">
                     <div class="slider-labels"
                         style="display: flex; justify-content: space-between; font-size: 13px; color: #94a3b8; margin-top: 8px;">
                         <span>100%</span>
@@ -201,8 +201,8 @@
                 <h2>Menga tilaklaring yoki dil izhoring</h2>
                 <p class="instruction">Yuragingda nima bo'lsa barchasini yozib qoldirishing mumkin:</p>
 
-                <div class="input required-wrapper">
-                    <textarea id="final-letter-input required" rows="5"
+                <div class="input-wrapper">
+                    <textarea id="final-letter-input" rows="5"
                         placeholder="Sening shirin so'zlaring men uchun juda muhim..."></textarea>
                 </div>
 
@@ -246,8 +246,8 @@
                 <p id="modal-mood-message">Xabar matni...</p>
 
                 <div id="mood-reason-wrapper" class="mood-reason-wrapper hidden">
-                    <label for="mood-reason-input required">Nimaga kayfiyating yo'q, nima bo'ldi?</label>
-                    <textarea id="mood-reason-input required" rows="3" placeholder="Sirlashsak bo'ladi, yozib ber..."></textarea>
+                    <label for="mood-reason-input">Nimaga kayfiyating yo'q, nima bo'ldi?</label>
+                    <textarea id="mood-reason-input" rows="3" placeholder="Sirlashsak bo'ladi, yozib ber..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">
