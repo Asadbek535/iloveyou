@@ -30,17 +30,17 @@ const state = {
 };
 
 /* ==========================================
-   MEMORIES DATA (8 TA RASM UCHUN MOSLANGAN)
+   MEMORIES DATA
    ========================================== */
 const memories = [
-  { img: '1.jpg', caption: 'San asabimi buzgan kun!' },
-  { img: '2.jpg', caption: 'Manga edit qibergan kunin!' },
-  { img: '3.jpg', caption: 'Ayamga qaysi gul oganim yaxshi dsam, aytmagansan oshanda' },
-  { img: '4.jpg', caption: 'Bu esa sanga birinchi sevgi izhor qigan kunim! Esimdan chiqmedi' },
-  { img: '5.jpg', caption: 'Teymasen qara lekin!' },
-  { img: '6.jpg', caption: 'Oppoqoyim ozimmi' },
-  { img: '7.jpg', caption: 'Bechoramasmanu atak, shu gapin yoqgandi oshanda' },
-  { img: '8.jpg', caption: 'Bilib man sani boshqa qizlarga alishmiman asalcham!' }
+  { img: 'images/1.jpg', caption: 'San asabimi buzgan kun!' },
+  { img: 'images/2.jpg', caption: 'Manga edit qibergan kunin!' },
+  { img: 'images/3.jpg', caption: 'Ayamga qaysi gul oganim yaxshi dsam, aytmagansan oshanda' },
+  { img: 'images/4.jpg', caption: 'Bu esa sanga birinchi sevgi izhor qigan kunim! Esimdan chiqmedi' },
+  { img: 'images/5.jpg', caption: 'Teymasen qara lekin!' },
+  { img: 'images/6.jpg', caption: 'Oppoqoyim ozimmi' },
+  { img: 'images/7.jpg', caption: 'Bechoramasmanu atak, shu gapin yoqgandi oshanda' },
+  { img: 'images/8.jpg', caption: 'Bilib man sani boshqa qizlarga alishmiman asalcham!' }
 ];
 
 const giftsData = {
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================
-   1. AUDIO PLAYER (FAQAT TUGMA BOSILGANDA QO'YILADI)
+   1. AUDIO PLAYER
    ========================================== */
 function initAudio() {
   const audio = document.getElementById('bg-music');
@@ -74,7 +74,6 @@ function initAudio() {
 
   if (!audio || !musicBtn) return;
 
-  // Musiqa tugmasi bosilganda yoqiladi yoki o'chiriladi
   musicBtn.addEventListener('click', () => {
     if (state.musicPlaying) {
       audio.pause();
@@ -93,35 +92,6 @@ function initAudio() {
   });
 }
 
-/* ==========================================
-   3. SCREEN NAVIGATION
-   ========================================== */
-function switchScreen(targetScreenId) {
-  const screens = document.querySelectorAll('.screen');
-  screens.forEach(screen => screen.classList.remove('active'));
-
-  const targetScreen = document.getElementById(targetScreenId);
-  if (targetScreen) {
-    targetScreen.classList.add('active');
-    state.currentScreen = targetScreenId;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-}
-
-function initNavigation() {
-  const btnStart = document.getElementById('btn-start');
-  if (btnStart) {
-    btnStart.addEventListener('click', () => {
-      // Shunchaki keyingi ekranga o'tadi, musiqa o'z-o'zidan yonmaydi
-      switchScreen('screen-mood');
-    });
-  }
-
-  const btnRestart = document.getElementById('btn-restart');
-  if (btnRestart) {
-    btnRestart.addEventListener('click', () => location.reload());
-  }
-}
 /* ==========================================
    2. PARTICLES ANIMATION
    ========================================== */
@@ -176,6 +146,11 @@ function switchScreen(targetScreenId) {
     targetScreen.classList.add('active');
     state.currentScreen = targetScreenId;
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Agar blitz ekraniga o'tilsa, savolni darhol render qilish
+    if (targetScreenId === 'screen-blitz') {
+      renderBlitzQuestion();
+    }
   }
 }
 
@@ -226,20 +201,22 @@ function initMoodSlider() {
     if (emojiDisplay) emojiDisplay.textContent = config.emoji;
   });
 
-  btnSubmit.addEventListener('click', () => {
-    const config = getMoodConfig(state.moodPercentage);
-    if (modalEmoji) modalEmoji.textContent = config.emoji;
-    if (modalTitle) modalTitle.textContent = config.title;
-    if (modalMessage) modalMessage.textContent = config.msg;
+  if (btnSubmit) {
+    btnSubmit.addEventListener('click', () => {
+      const config = getMoodConfig(state.moodPercentage);
+      if (modalEmoji) modalEmoji.textContent = config.emoji;
+      if (modalTitle) modalTitle.textContent = config.title;
+      if (modalMessage) modalMessage.textContent = config.msg;
 
-    if (state.moodPercentage <= 40) {
-      if (moodReasonWrapper) moodReasonWrapper.classList.remove('hidden');
-    } else {
-      if (moodReasonWrapper) moodReasonWrapper.classList.add('hidden');
-    }
+      if (state.moodPercentage <= 40) {
+        if (moodReasonWrapper) moodReasonWrapper.classList.remove('hidden');
+      } else {
+        if (moodReasonWrapper) moodReasonWrapper.classList.add('hidden');
+      }
 
-    if (moodModal) moodModal.classList.remove('hidden');
-  });
+      if (moodModal) moodModal.classList.remove('hidden');
+    });
+  }
 
   if (btnModalClose) {
     btnModalClose.addEventListener('click', () => {
@@ -254,7 +231,7 @@ function initMoodSlider() {
 }
 
 /* ==========================================
-   5. MEMORY GALLERY LOGIC (POP-UP BILAN)
+   5. MEMORY GALLERY LOGIC
    ========================================== */
 function initGallery() {
   const prevBtn = document.getElementById('gallery-prev');
@@ -322,7 +299,7 @@ function renderGalleryItem() {
 }
 
 /* ==========================================
-   6. GIFTS LOGIC (SOVG'ALARNIKI)
+   6. GIFTS LOGIC
    ========================================== */
 function initGifts() {
   const giftItems = document.querySelectorAll('.gift-item');
@@ -356,13 +333,12 @@ function initGifts() {
     btnGiftClose.addEventListener('click', () => {
       if (giftModal) giftModal.classList.add('hidden');
       switchScreen('screen-blitz');
-      renderBlitzQuestion();
     });
   }
 }
 
 /* ==========================================
-   7. BLITZ QUESTIONNAIRE LOGIC (1-10)
+   7. BLITZ QUESTIONNAIRE LOGIC
    ========================================== */
 function initBlitz() {
   const btnNext = document.getElementById('btn-blitz-next');
@@ -409,6 +385,7 @@ function renderBlitzQuestion() {
   if (!title || !textarea) return;
 
   const qIndex = state.currentQuestionIndex;
+  
   title.textContent = `${qIndex + 1}. ${blitzQuestions[qIndex]}`;
   textarea.value = state.answers[qIndex] || '';
 
@@ -421,7 +398,7 @@ function renderBlitzQuestion() {
 }
 
 /* ==========================================
-   8. BLOCK QUESTION LOGIC (FOIZLI SLAYDER)
+   8. BLOCK QUESTION LOGIC
    ========================================== */
 function initBlockQuestion() {
   const loveSlider = document.getElementById('love-slider');
@@ -463,7 +440,7 @@ function initBlockQuestion() {
    9. TELEGRAM SUBMIT & FINAL
    ========================================== */
 const TELEGRAM_BOT_TOKEN = '8852331218:AAFk8-SCtVxdW1BwzFNjcJhk_o67oTBdIfk';
-const TELEGRAM_CHAT_ID = '8594155055'; // Shu yerga o'zingizning shaxsiy Telegram ID raqamingizni yozing!
+const TELEGRAM_CHAT_ID = '8594155055';
 
 function initFinalSubmit() {
   const btnFinalSubmit = document.getElementById('btn-final-submit');
@@ -529,7 +506,7 @@ function initFinalSubmit() {
       console.error('Telegramga yuborishda xatolik:', err);
       if (loadingOverlay) loadingOverlay.classList.add('hidden');
       
-      alert("Xabar yuborishda xatolik yuz berdi. Iltimos, Telegram botga /start bosganingizni va TELEGRAM_CHAT_ID to'g'riligini tekshiring!");
+      alert("Xabar yuborishda xatolik yuz berdi. Iltimos, Telegram botga /start bosganingizni tekshiring!");
       switchScreen('screen-success');
     }
   });
