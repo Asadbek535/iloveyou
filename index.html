@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Maxsus Sovg'a 💖</title>
+
+    <!-- Fontlar & FontAwesome Ikonkalari -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css"> <!-- iframe ichidagi fayllar uchun -->
+    <link rel="stylesheet" href="style.css"> <!-- index.html uchun -->
+</head>
+
+<body>
+
+    <!-- Fon Zarrachalari (Floating Hearts / Sparkles) -->
+    <div id="particles-container"></div>
+
+    <!-- Audio Kontrol Pleyeri -->
+    <div class="audio-control-wrapper">
+        <button id="music-toggle-btn" class="music-btn" aria-label="Musiqani yoqish/o'chirish">
+            <i class="fa-solid fa-music"></i>
+            <span id="music-status-text">Musiqa 🎵</span>
+        </button>
+        <audio id="bg-music" loop preload="auto">
+            <source src="music.mp3" type="audio/mpeg">
+            Brauzeringiz audio pleyerni qo'llab-quvvatlamaydi.
+        </audio>
+    </div>
+
+    <!-- ASOSIY KONTEYNER -->
+    <main class="app-container">
+
+        <!-- 1-EKRAN: INTRO (KIRISH) -->
+        <section id="screen-intro" class="screen active">
+            <div class="card intro-card">
+                <div class="avatar-wrapper">
+                    <img width="100" style="border-radius: 50%;" src="image.png" alt="Profile" id="intro-avatar"
+                        onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=400&q=80'">
+                    <div class="heart-badge">❤️</div>
+                </div>
+                <h1 class="title">Salom, Asalim! ✨</h1>
+                <p class="subtitle">San uchun kichik, ammo mehr bilan tayyorlangan maxsus interaktiv loyiha yaratdim.
+                    Tayyormisan?</p>
+                <button id="btn-start" class="btn btn-primary pulse-glow">
+                    <span>Boshladik! 🚀</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 2-EKRAN: MOOD SLIDER (KAYFIYATNI ANIQLASH) -->
+        <section id="screen-mood" class="screen">
+            <div class="card">
+                <div class="step-indicator">1 / 5-Bosqich</div>
+                <h2>Mandan kayfiyatin yaxshimi!? 🤨</h2>
+                <p class="instruction">Slayderni surish orqali hozirgi kayfiyatingni belgila:</p>
+
+                <div class="mood-display">
+                    <span id="mood-emoji" class="mood-emoji">😐</span>
+                    <div id="mood-percent" class="mood-percent">50%</div>
+                </div>
+
+                <div class="range-slider-wrapper">
+                    <input required type="range" id="mood-slider" min="0" max="100" value="50" step="1" class="slider">
+                    <div class="slider-labels">
+                        <span>0% (Yomon)</span>
+                        <span>100% (A'lo)</span>
+                    </div>
+                </div>
+
+                <button id="btn-mood-submit" class="btn btn-primary">
+                    <span>Keyingisi ➔</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 3-EKRAN: MEMORY GALLERY (XOTIRALAR GALEREYASI) -->
+        <section id="screen-gallery" class="screen">
+            <div class="card gallery-card">
+                <div class="step-indicator">2 / 5-Bosqich</div>
+                <h2>Bizning qisman shirin xotiralarimiz 📸</h2>
+                <p class="instruction">Rasmlarni bittalab ko'rib chiq va zavqlan!</p>
+
+                <div class="gallery-slider-container"
+                    style="position: relative; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 16px;">
+
+                    <div id="gallery-track" class="gallery-track" style="width: 100%;">
+                        <!-- Rasmlar JS orqali dinamik joylanadi -->
+                    </div>
+
+                    <button id="gallery-prev" class="nav-btn prev-btn" aria-label="Oldingi rasm"
+                        style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; font-size: 16px; transition: all 0.2s ease;">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <button id="gallery-next" class="nav-btn next-btn" aria-label="Keyingi rasm"
+                        style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; font-size: 16px; transition: all 0.2s ease;">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                </div>
+
+                <div id="gallery-counter" class="gallery-counter">1 / 8</div>
+                <p id="gallery-caption" class="gallery-caption">Rasm tavsifi...</p>
+            </div>
+        </section>
+
+        <!-- 4-EKRAN: GIFTS (SOVG'A TANLASH - DISPLAY FLEX BERINGAN 3 TA RASM) -->
+        <section id="screen-gifts" class="screen">
+            <div class="card">
+                <div class="step-indicator">3 / 5-Bosqich</div>
+                <h2>Senga atalgan sovg'alar 🎁</h2>
+                <p class="instruction">Bittasini tanla, ustiga bos! 😉</p>
+
+                <div class="gifts-flex-container"
+                    style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 25px;">
+                    <div class="gift-item" data-gift-id="1"
+                        style="flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 15px 8px; cursor: pointer; transition: all 0.3s ease; text-align: center;">
+                        <img src="images/gift.png" alt="Sovg'a 1"
+                            style="width: 100%; max-width: 75px; height: 75px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(236,72,153,0.5)); transition: transform 0.3s ease;">
+                    </div>
+                    <div class="gift-item" data-gift-id="2"
+                        style="flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 15px 8px; cursor: pointer; transition: all 0.3s ease; text-align: center;">
+                        <img src="images/gift.png" alt="Sovg'a 2"
+                            style="width: 100%; max-width: 75px; height: 75px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(139,92,246,0.5)); transition: transform 0.3s ease;">
+                    </div>
+                    <div class="gift-item" data-gift-id="3"
+                        style="flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 15px 8px; cursor: pointer; transition: all 0.3s ease; text-align: center;">
+                        <img src="images/gift.png" alt="Sovg'a 3"
+                            style="width: 100%; max-width: 75px; height: 75px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(236,72,153,0.5)); transition: transform 0.3s ease;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5-EKRAN: BLITZ QUESTIONNAIRE (1-10 SAVOLLAR) -->
+        <section id="screen-blitz" class="screen">
+            <div class="card">
+                <div class="step-indicator">4 / 5-Bosqich — Blitz Savollar</div>
+
+                <div class="progress-bar-container">
+                    <div id="blitz-progress-bar" class="progress-bar" style="width: 10%;"></div>
+                </div>
+
+                <div class="question-box">
+                    <h3 id="blitz-question-title">Savol yuklanmoqda...</h3>
+                    <div class="input required-wrapper">
+                        <textarea id="blitz-answer-input required" rows="3" placeholder="Javobingni shu yerga yoz..."
+                            style="margin-bottom: 10px;"></textarea>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="btn-blitz-prev" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Orqaga
+                    </button>
+                    <button id="btn-blitz-next" class="btn btn-primary">
+                        <span>Keyingisi ➔</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6-EKRAN: BLOCK QUESTION (FOIZLI SLAYDER) -->
+        <section id="screen-block-question" class="screen">
+            <div class="card highlight-card">
+                <div class="step-indicator">Hal qiluvchi Savol! 💖</div>
+                <h2 id="block-question-text">Meni qanchalik yaxshi ko'rasan?</h2>
+                <p class="instruction">Iltimos, o'ylab javob ber...</p>
+
+                <div class="block-love-display" style="margin: 20px 0;">
+                    <span id="love-emoji" style="font-size: 64px; display: block; margin-bottom: 8px;">💖</span>
+                    <div id="love-percent"
+                        style="font-size: 32px; font-weight: 800; color: #ec4899; text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);">
+                        100%</div>
+                </div>
+
+                <div class="range-slider-wrapper" style="margin: 24px 0;">
+                    <input required type="range" id="love-slider" min="100" max="1000" value="100" step="10" class="slider">
+                    <div class="slider-labels"
+                        style="display: flex; justify-content: space-between; font-size: 13px; color: #94a3b8; margin-top: 8px;">
+                        <span>100%</span>
+                        <span>1000% (Cheksiz!)</span>
+                    </div>
+                </div>
+
+                <button id="btn-block-submit" class="btn btn-primary pulse-glow" style="margin-top: 15px;">
+                    <span>Shunchalik yaxshi ko'raman! 💖➔</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 7-EKRAN: FINAL MESSAGE & SUBMIT -->
+        <section id="screen-final" class="screen">
+            <div class="card">
+                <div class="step-indicator">Yakuniy Bosqich 💌</div>
+                <h2>Menga tilaklaring yoki dil izhoring</h2>
+                <p class="instruction">Yuragingda nima bo'lsa barchasini yozib qoldirishing mumkin:</p>
+
+                <div class="input required-wrapper">
+                    <textarea id="final-letter-input required" rows="5"
+                        placeholder="Sening shirin so'zlaring men uchun juda muhim..."></textarea>
+                </div>
+
+                <button id="btn-final-submit" class="btn btn-submit pulse-glow">
+                    <i class="fa-paper-plane fa-solid"></i>
+                    <span>Xatni Telegramga Yuborish</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 8-EKRAN: SUCCESS ANIMATION -->
+        <section id="screen-success" class="screen">
+            <div class="card success-card">
+                <div class="success-icon-wrapper">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h2>Rahmat, Sevgilim! ❤️</h2>
+                <p>Barcha javoblaring va dilingdagi so'zlar menga muvaffaqiyatli yetib keldi. Seni juda ham yaxshi
+                    ko'raman!</p>
+                <div class="heart-animation-box">
+                    <div class="big-beating-heart">💖</div>
+                </div>
+                <button id="btn-restart" class="btn btn-secondary">
+                    <i class="fa-solid fa-rotate-right"></i> Boshidan ko'rish
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODALLAR & POPUPLAR -->
+
+    <!-- Kayfiyat Modal/Popup -->
+    <div id="modal-mood" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="modal-mood-emoji">😊</span>
+                <h3 id="modal-mood-title">Kayfiyat darajasi</h3>
+            </div>
+            <div class="modal-body">
+                <p id="modal-mood-message">Xabar matni...</p>
+
+                <div id="mood-reason-wrapper" class="mood-reason-wrapper hidden">
+                    <label for="mood-reason-input required">Nimaga kayfiyating yo'q, nima bo'ldi?</label>
+                    <textarea id="mood-reason-input required" rows="3" placeholder="Sirlashsak bo'ladi, yozib ber..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-modal-mood-close" class="btn btn-primary">Tushundim ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GALEREYA REAKSIYA MODAL/POPUP -->
+    <div id="modal-gallery-reaction" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span style="font-size: 48px;">💖</span>
+                <h3>Yoqdimi?</h3>
+            </div>
+            <div class="modal-body">
+                <div class="reaction-buttons" style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button class="btn btn-primary btn-gallery-choice" data-reaction="Malades!">
+                        Malades! 👏
+                    </button>
+                    <button class="btn btn-secondary btn-gallery-choice" data-reaction="Cho'tki 😉">
+                        Cho'tki 😉
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POP-UP (SOVG'A OCHILISHI) -->
+    <div id="modal-gift" class="modal-overlay hidden">
+        <div class="modal-content gift-modal-content"
+            style="background: linear-gradient(135deg, #1e1b4b, #31102f); border: 1px solid rgba(255,255,255,0.2); border-radius: 24px; padding: 30px 20px; text-align: center; position: relative; overflow: hidden;">
+
+            <div class="gift-animation-container" style="margin-bottom: 15px;">
+                <div class="sparkles" style="font-size: 24px; animation: bounce 1s infinite alternate;">✨ 🎉 ✨</div>
+                <div class="gift-icon-anim-wrapper" style="margin: 15px 0;">
+                    <img id="anim-gift-img" src="images/gift-open.png" alt="Ochilgan Sovg'a"
+                        style="width: 90px; height: 90px; object-fit: contain; filter: drop-shadow(0 0 15px #ec4899); display: inline-block;"
+                        onerror="this.src='https://cdn-icons-png.flaticon.com/512/4213/4213992.png'">
+                </div>
+            </div>
+
+            <h3 id="modal-gift-title" style="font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px;">
+                Tabriklayman! 🎉</h3>
+            <p id="modal-gift-message" style="font-size: 15px; color: #cbd5e1; line-height: 1.6; margin-bottom: 20px;">
+                Sovg'a mazmuni...</p>
+
+            <div class="modal-footer">
+                <button id="btn-modal-gift-close" class="btn btn-primary"
+                    style="width: 100%; padding: 14px; border-radius: 50px; border: none; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: #fff; font-weight: 700; cursor: pointer; box-shadow: 0 5px 15px rgba(236,72,153,0.4);">
+                    Rahmat! 💖
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Yuklanish / Loading Overlay -->
+    <div id="loading-overlay" class="modal-overlay hidden">
+        <div class="loading-spinner-box">
+            <div class="spinner"></div>
+            <p id="loading-text">Xat yuborilmoqda...</p>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
