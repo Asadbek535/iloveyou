@@ -33,14 +33,14 @@ const state = {
    MEMORIES DATA (8 TA RASM UCHUN MOSLANGAN)
    ========================================== */
 const memories = [
-  { img: 'images/1.jpg', caption: 'San asabimi buzgan kun!' },
-  { img: 'images/2.jpg', caption: 'Manga edit qibergan kunin!' },
-  { img: 'images/3.jpg', caption: 'Ayamga qaysi gul oganim yaxshi dsam, aytmagansan oshanda' },
-  { img: 'images/4.jpg', caption: 'Bu esa sanga birinchi sevgi izhor qigan kunim! Esimdan chiqmedi' },
-  { img: 'images/5.jpg', caption: 'Teymasen qara lekin!' },
-  { img: 'images/6.jpg', caption: 'Oppoqoyim ozimmi' },
-  { img: 'images/7.jpg', caption: 'Bechoramasmanu atak, shu gapin yoqgandi oshanda' },
-  { img: 'images/8.jpg', caption: 'Bilib man sani boshqa qizlarga alishmiman asalcham!' }
+  { img: '1.jpg', caption: 'San asabimi buzgan kun!' },
+  { img: '2.jpg', caption: 'Manga edit qibergan kunin!' },
+  { img: '3.jpg', caption: 'Ayamga qaysi gul oganim yaxshi dsam, aytmagansan oshanda' },
+  { img: '4.jpg', caption: 'Bu esa sanga birinchi sevgi izhor qigan kunim! Esimdan chiqmedi' },
+  { img: '5.jpg', caption: 'Teymasen qara lekin!' },
+  { img: '6.jpg', caption: 'Oppoqoyim ozimmi' },
+  { img: '7.jpg', caption: 'Bechoramasmanu atak, shu gapin yoqgandi oshanda' },
+  { img: '8.jpg', caption: 'Bilib man sani boshqa qizlarga alishmiman asalcham!' }
 ];
 
 const giftsData = {
